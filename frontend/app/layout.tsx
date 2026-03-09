@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import "./globals.css";
 
@@ -15,7 +16,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        {children}
+        <div className="min-h-screen bg-zinc-950 text-zinc-100 font-mono">
+          <header className="border-b border-zinc-800 px-8 py-4">
+            <Link href="/" className="text-xl font-bold tracking-widest text-emerald-400 hover:text-emerald-300 transition-colors">
+              SNIPPET VAULT
+            </Link>
+          </header>
+          {children}
+        </div>
       </body>
     </html>
   );

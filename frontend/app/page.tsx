@@ -53,33 +53,27 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-mono">
-      <header className="border-b border-zinc-800 px-6 py-4">
-        <h1 className="text-xl font-bold tracking-widest text-emerald-400">SNIPPET VAULT</h1>
-      </header>
+    <div className="flex h-[calc(100vh-57px)]">
+      <SnippetCreateForm onCreated={() => { setPage(1); loadSnippets(); }} />
 
-      <div className="flex h-[calc(100vh-57px)]">
-        <SnippetCreateForm onCreated={() => { setPage(1); loadSnippets(); }} />
-
-        <main className="flex-1 flex flex-col overflow-hidden">
-          <SnippetSearchBar
-            q={q}
-            tag={tag}
-            onQChange={v => { setQ(v); setPage(1); }}
-            onTagChange={v => { setTag(v); setPage(1); }}
-          />
-          <SnippetList
-            snippets={snippets}
-            loading={loading}
-            error={error}
-            page={page}
-            totalPages={totalPages}
-            onDelete={handleDelete}
-            onTagClick={handleTagClick}
-            onPageChange={setPage}
-          />
-        </main>
-      </div>
+      <main className="flex-1 flex flex-col overflow-hidden">
+        <SnippetSearchBar
+          q={q}
+          tag={tag}
+          onQChange={v => { setQ(v); setPage(1); }}
+          onTagChange={v => { setTag(v); setPage(1); }}
+        />
+        <SnippetList
+          snippets={snippets}
+          loading={loading}
+          error={error}
+          page={page}
+          totalPages={totalPages}
+          onDelete={handleDelete}
+          onTagClick={handleTagClick}
+          onPageChange={setPage}
+        />
+      </main>
     </div>
   );
 }

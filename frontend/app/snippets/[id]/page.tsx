@@ -57,12 +57,22 @@ export default function SnippetDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-mono">
-      <header className="border-b border-zinc-800 px-8 py-4 flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold tracking-widest text-emerald-400 hover:text-emerald-300 transition-colors">
-          SNIPPET VAULT
-        </Link>
-        <div className="flex gap-4">
+    <div className="px-8 py-12">
+      <div className="max-w-2xl">
+
+        <div className="flex items-center gap-4 mb-6 flex-wrap">
+          <span className="text-xs px-3 py-1 rounded-full border border-zinc-700 bg-zinc-900 text-zinc-400 uppercase tracking-widest">
+            {snippet.type}
+          </span>
+          <span className="text-xs text-zinc-600">
+            created {new Date(snippet.createdAt).toLocaleDateString()}
+          </span>
+          <span className="text-xs text-zinc-600">
+            updated {new Date(snippet.updatedAt).toLocaleDateString()}
+          </span>
+        </div>
+
+        <div className="flex gap-3 mb-6">
           <Link href={`/snippets/${snippet._id}/edit`} className="text-sm border border-zinc-700 text-zinc-400 hover:text-zinc-100 hover:border-zinc-500 px-3 py-1 rounded transition-colors">
             edit
           </Link>
@@ -70,44 +80,27 @@ export default function SnippetDetailPage({ params }: PageProps) {
             delete
           </button>
         </div>
-      </header>
 
-      <div className="px-8 py-12">
-        <div className="max-w-2xl">
+        <h1 className="text-3xl font-bold text-zinc-100 mb-4 leading-snug">
+          {snippet.title}
+        </h1>
 
-          <div className="flex items-center gap-4 mb-6 flex-wrap">
-            <span className="text-xs px-3 py-1 rounded-full border border-zinc-700 bg-zinc-900 text-zinc-400 uppercase tracking-widest">
-              {snippet.type}
-            </span>
-            <span className="text-xs text-zinc-600">
-              created {new Date(snippet.createdAt).toLocaleDateString()}
-            </span>
-            <span className="text-xs text-zinc-600">
-              updated {new Date(snippet.updatedAt).toLocaleDateString()}
-            </span>
-          </div>
-
-          <h1 className="text-3xl font-bold text-zinc-100 mb-4 leading-snug">
-            {snippet.title}
-          </h1>
-
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6 mb-6">
-            <pre className="text-sm text-zinc-300 whitespace-pre-wrap break-words leading-relaxed">
-              {snippet.content}
-            </pre>
-          </div>
-
-          {snippet.tags.length > 0 && (
-            <div className="flex gap-2 flex-wrap">
-              {snippet.tags.map(t => (
-                <span key={t} className="text-xs px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-emerald-500">
-                  #{t}
-                </span>
-              ))}
-            </div>
-          )}
-
+        <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-6 mb-6">
+          <pre className="text-sm text-zinc-300 whitespace-pre-wrap break-words leading-relaxed">
+            {snippet.content}
+          </pre>
         </div>
+
+        {snippet.tags.length > 0 && (
+          <div className="flex gap-2 flex-wrap">
+            {snippet.tags.map(t => (
+              <span key={t} className="text-xs px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900 text-emerald-500">
+                #{t}
+              </span>
+            ))}
+          </div>
+        )}
+
       </div>
     </div>
   );
