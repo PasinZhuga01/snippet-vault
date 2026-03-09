@@ -5,7 +5,7 @@ import type { SnippetType } from './snippets.types';
 
 export type SnippetDocument = Snippet & Document;
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, versionKey: false })
 export class Snippet {
   @Prop({ required: true })
   title: string;
