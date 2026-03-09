@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getSnippet, deleteSnippet } from '@/lib/api';
-import { ApiError } from '@/lib/api.errors';
+import { getApiErrorMessage, getDeleteSnippetApiErrorMessage } from '@/lib/api.utils';
 import type { Snippet } from '@/lib/api.types';
 
 import { PageProps } from './page.types'
@@ -23,7 +23,7 @@ export default function SnippetDetailPage({ params }: PageProps) {
         const data = await getSnippet(id);
         setSnippet(data);
       } catch (e) {
-        setError(e instanceof ApiError ? `Server error ${e.status}` : 'Network error or server is unavailable. Please check your connection or try again later');
+        setError(getApiErrorMessage(e));
       }
       setLoading(false);
     }
@@ -39,8 +39,8 @@ export default function SnippetDetailPage({ params }: PageProps) {
     try {
       await deleteSnippet(snippet._id);
       router.push('/');
-    } catch {
-      setError('Failed to delete snippet. Please try again later');
+    } catch (e) {
+      setError(getDeleteSnippetApiErrorMessage(e));
     }
   }
 

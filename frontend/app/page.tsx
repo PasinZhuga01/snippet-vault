@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { getSnippets, deleteSnippet } from '@/lib/api';
-import { ApiError } from '@/lib/api.errors';
 import { Snippet } from '@/lib/api.types';
+import { getApiErrorMessage, getDeleteSnippetApiErrorMessage } from '@/lib/api.utils';
 import SnippetCreateForm from '@/app/components/SnippetCreateForm';
 import SnippetList from '@/app/components/SnippetList';
 import SnippetSearchBar from '@/app/components/SnippetSearchBar';
@@ -30,7 +30,7 @@ export default function HomePage() {
       setSnippets(res.data);
       setTotal(res.total);
     } catch (e) {
-      setError(e instanceof ApiError ? `Server error ${e.status}` : 'Network error or server is unavailable. Please check your connection or try again later');
+      setError(getApiErrorMessage(e));
     }
 
     setLoading(false);
@@ -42,8 +42,8 @@ export default function HomePage() {
     try {
       await deleteSnippet(id);
       await loadSnippets();
-    } catch {
-      setError('Failed to delete snippet. Please try again later');
+    } catch (e) {
+      setError(getDeleteSnippetApiErrorMessage(e));
     }
   }
 

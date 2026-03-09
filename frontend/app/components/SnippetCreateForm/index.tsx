@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import { createSnippet } from '@/lib/api';
-import { ApiError } from '@/lib/api.errors';
 import { SnippetType } from '@/lib/api.types';
 import { SNIPPET_TYPES } from '@/lib/api.constants'
+import { getApiErrorMessage } from '@/lib/api.utils'
 
 import type { SnippetCreateFormProps, SnippetCreateFormState } from './types';
 import { SnippetCreateFormInvalidTypeError } from './errors';
@@ -46,7 +46,7 @@ export default function SnippetCreateForm({ onCreated }: SnippetCreateFormProps)
       setForm({ title: '', content: '', tags: '', type: 'note' });
       onCreated();
     } catch (e) {
-      setError(e instanceof ApiError ? `Server error ${e.status}` : 'Network error or server is unavailable. Please check your connection or try again later');
+      setError(getApiErrorMessage(e));
     }
 
     setSubmitting(false);
