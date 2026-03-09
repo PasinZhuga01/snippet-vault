@@ -1,0 +1,1 @@
+export type SnippetType = 'link' | 'note' | 'command';
